@@ -7,6 +7,25 @@ Modules:
 - `modules/metric-filter`: Creates an `aws_cloudwatch_log_metric_filter` from a LogStruct `source` and `event` using the LogStruct provider for validation and pattern generation.
 - `modules/subscription-filter`: Creates an `aws_cloudwatch_log_subscription_filter` from a LogStruct `source` and `event`.
 
+Root module
+
+The root re-exports both submodules as optional modules. Enable one or both via booleans and pass the corresponding inputs:
+
+```hcl
+module "logstruct_aws" {
+  source = "DocSpring/logstruct/aws"
+
+  enable_metric_filter       = true
+  metric_filter_name         = "Email Delivered Count"
+  metric_log_group_name      = var.log_group.docspring
+  metric_log_source          = "mailer"
+  metric_log_event           = "delivered"
+  metric_namespace           = var.namespace.logs
+
+  enable_subscription_filter = false
+}
+```
+
 Versioning
 
 - Provider: The LogStruct provider is auto‑tagged and released from the LogStruct CI. Provider versions track the gem’s releases and are kept in sync automatically.
