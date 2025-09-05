@@ -1,6 +1,6 @@
 data "logstruct_pattern" "this" {
-  source = var.source
-  event  = var.event
+  source = var.log_source
+  event  = var.log_event
 }
 
 resource "aws_cloudwatch_log_metric_filter" "this" {
@@ -9,7 +9,7 @@ resource "aws_cloudwatch_log_metric_filter" "this" {
   pattern        = data.logstruct_pattern.this.pattern
 
   metric_transformation {
-    name      = coalesce(var.metric_name, "${var.source}_${var.event}")
+    name      = coalesce(var.metric_name, "${var.log_source}_${var.log_event}")
     namespace = var.namespace
     value     = "1"
     unit      = "Count"

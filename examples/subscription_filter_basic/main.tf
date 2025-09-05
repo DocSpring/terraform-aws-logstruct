@@ -15,8 +15,8 @@ module "mailer_errors_sub" {
   source          = "../..//modules/subscription-filter"
   name            = "MailerErrors"
   log_group_name  = var.log_group_name
-  source          = "mailer"
-  event           = "error"
+  log_source      = "mailer"
+  log_event       = "error"
   destination_arn = var.destination_arn
 }
 

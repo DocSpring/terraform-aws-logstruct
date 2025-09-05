@@ -15,8 +15,8 @@ module "email_delivered_metric" {
   source         = "../..//modules/metric-filter"
   name           = "Email Delivered Count"
   log_group_name = var.log_group_name
-  source         = "mailer"
-  event          = "delivered"
+  log_source     = "mailer"
+  log_event      = "delivered"
   namespace      = var.namespace
 }
 

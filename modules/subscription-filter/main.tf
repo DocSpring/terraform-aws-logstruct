@@ -1,6 +1,6 @@
 data "logstruct_pattern" "this" {
-  source = var.source
-  event  = var.event
+  source = var.log_source
+  event  = var.log_event
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "this" {
