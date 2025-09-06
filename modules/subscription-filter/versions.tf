@@ -3,7 +3,7 @@ terraform {
   required_providers {
     logstruct = {
       source  = "DocSpring/logstruct"
-      version = ">= 0.0.4"
+      version = ">= 0.0.6"
     }
     aws = {
       source  = "hashicorp/aws"
@@ -11,4 +11,3 @@ terraform {
     }
   }
 }
-
