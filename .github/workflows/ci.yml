@@ -1,0 +1,64 @@
+name: Terraform Module CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**/*.tf'
+      - '.tflint.hcl'
+      - 'README.md'
+      - 'LICENSE'
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  fmt-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.7.5
+      - name: Terraform fmt (check)
+        run: terraform fmt -check -recursive
+      - name: Validate root module
+        run: |
+          terraform init -backend=false
+          terraform validate
+      - name: Validate metric-filter submodule
+        run: |
+          terraform -chdir=modules/metric-filter init -backend=false
+          terraform -chdir=modules/metric-filter validate
+      - name: Validate subscription-filter submodule
+        run: |
+          terraform -chdir=modules/subscription-filter init -backend=false
+          terraform -chdir=modules/subscription-filter validate
+      - name: Validate examples (metric)
+        run: |
+          terraform -chdir=examples/metric_filter_basic init -backend=false
+          terraform -chdir=examples/metric_filter_basic validate
+      - name: Validate examples (subscription)
+        run: |
+          terraform -chdir=examples/subscription_filter_basic init -backend=false
+          terraform -chdir=examples/subscription_filter_basic validate
+
+  tflint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
+      - name: TFLint init
+        run: tflint --init || true
+      - name: TFLint root
+        run: tflint -c .tflint.hcl .
+      - name: TFLint metric-filter module
+        run: tflint -c .tflint.hcl modules/metric-filter
+      - name: TFLint subscription-filter module
+        run: tflint -c .tflint.hcl modules/subscription-filter
+      - name: TFLint examples (metric)
+        run: tflint -c .tflint.hcl examples/metric_filter_basic
+      - name: TFLint examples (subscription)
+        run: tflint -c .tflint.hcl examples/subscription_filter_basic
+
