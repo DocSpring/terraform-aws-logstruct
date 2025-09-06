@@ -52,13 +52,12 @@ jobs:
       - name: TFLint init
         run: tflint --init || true
       - name: TFLint root
-        run: tflint -c .tflint.hcl .
+        run: tflint --chdir . -c .tflint.hcl
       - name: TFLint metric-filter module
-        run: tflint -c .tflint.hcl modules/metric-filter
+        run: tflint --chdir modules/metric-filter -c ../.tflint.hcl
       - name: TFLint subscription-filter module
-        run: tflint -c .tflint.hcl modules/subscription-filter
+        run: tflint --chdir modules/subscription-filter -c ../.tflint.hcl
       - name: TFLint examples (metric)
-        run: tflint -c .tflint.hcl examples/metric_filter_basic
+        run: tflint --chdir examples/metric_filter_basic -c ../../.tflint.hcl
       - name: TFLint examples (subscription)
-        run: tflint -c .tflint.hcl examples/subscription_filter_basic
-
+        run: tflint --chdir examples/subscription_filter_basic -c ../../.tflint.hcl

@@ -1,0 +1,13 @@
+# Terraform local artifacts
+**/.terraform/
+**/.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+
+# TFLint local config
+.tflint.hcl.local
+
+# OS/editor junk
+.DS_Store
+.idea/
+.vscode/
