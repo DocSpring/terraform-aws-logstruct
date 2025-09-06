@@ -2,14 +2,15 @@ name: Terraform Module CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
+      - '.github/**/*'
       - '**/*.tf'
       - '.tflint.hcl'
       - 'README.md'
       - 'LICENSE'
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   fmt-validate:
