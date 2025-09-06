@@ -54,9 +54,9 @@ jobs:
       - name: TFLint root
         run: tflint --chdir . -c .tflint.hcl
       - name: TFLint metric-filter module
-        run: tflint --chdir modules/metric-filter -c ../.tflint.hcl
+        run: tflint --chdir modules/metric-filter -c ../../.tflint.hcl
       - name: TFLint subscription-filter module
-        run: tflint --chdir modules/subscription-filter -c ../.tflint.hcl
+        run: tflint --chdir modules/subscription-filter -c ../../.tflint.hcl
       - name: TFLint examples (metric)
         run: tflint --chdir examples/metric_filter_basic -c ../../.tflint.hcl
       - name: TFLint examples (subscription)
