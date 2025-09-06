@@ -15,7 +15,7 @@ jobs:
   fmt-validate:
     runs-on: ubuntu-latest
     env:
-      TF_PLUGIN_CACHE_DIR: ${{ runner.temp }}/tf-plugin-cache
+      TF_PLUGIN_CACHE_DIR: ${{ github.workspace }}/.terraform.d/plugin-cache
     steps:
       - uses: actions/checkout@v4
       - name: Create plugin cache
@@ -50,7 +50,7 @@ jobs:
   tflint:
     runs-on: ubuntu-latest
     env:
-      TF_PLUGIN_CACHE_DIR: ${{ runner.temp }}/tf-plugin-cache
+      TF_PLUGIN_CACHE_DIR: ${{ github.workspace }}/.terraform.d/plugin-cache
     steps:
       - uses: actions/checkout@v4
       - name: Create plugin cache
